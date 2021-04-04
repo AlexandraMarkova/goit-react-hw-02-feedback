@@ -1,11 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import Container from './components/Container/Container';
-import Section from './components/Section/Section';
-import FeedbackOptions from './components/FeedbackOptions/FeedbackOptions';
-import Statistics from './components/Statistics/Statistics';
+import Container from './components/Container';
+import Section from './components/Section';
+import FeedbackOptions from './components/FeedbackOptions';
+import Statistics from './components/Statistics';
 
 class App extends React.Component {
+  static propTypes = {
+    title: PropTypes.string,
+    options: PropTypes.array,
+    onLeaveFeedback: PropTypes.number,
+    good: PropTypes.number,
+    neutral: PropTypes.number,
+    bad: PropTypes.number,
+    total: PropTypes.number,
+    positivePercentage: PropTypes.number,
+  };
+
   state = {
     good: 0,
     neutral: 0,
@@ -36,6 +48,7 @@ class App extends React.Component {
   render() {
     const totalFeedback = this.countTotalFeedback();
     const feedbackPercentage = this.countPositiveFeedbackPercentage();
+    const { good, neutral, bad } = this.state;
 
     return (
       <Container>
@@ -48,9 +61,9 @@ class App extends React.Component {
 
         <Section title="Statistics">
           <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
+            good={good}
+            neutral={neutral}
+            bad={bad}
             total={totalFeedback}
             positivePercentage={feedbackPercentage}
           ></Statistics>
